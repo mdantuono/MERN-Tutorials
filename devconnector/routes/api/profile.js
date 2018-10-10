@@ -154,14 +154,14 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 // @access  Private
 router.post('/experience', passport.authenticate('jwt', { session: false }), () => {
 
-  const { errors, isValid } = validateProfileInput(req.body);
+  const { errors, isValid } = validateExperienceInput(req.body);
 
   // Check validation
   if(!isValid) {
     // Return any errors with 400 status
     return res.status(400).json(errors);
   }
-  
+
   Profile.findOne({ user: req.user.id })
     .then(profile => {
       const newExp = {
